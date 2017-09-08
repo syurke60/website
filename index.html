@@ -122,10 +122,10 @@ $(document).ready(function () {
 
 <div id="filtering-columns-and-rows" class="section level2">
 <h2>Filtering Columns and Rows</h2>
-<p>With SQL, you can filter columns and rows by using SELECT and WHERE. Let’s look at an example using the Lahman database. So we should first load that database, anlong with the package sqldf.</p>
+<p>With SQL, you can filter columns and rows by using SELECT for columns and WHERE from rows. Let’s look at an example using the Lahman database. So we should first load that database, along with the package sqldf.</p>
 <pre class="r"><code>library(Lahman)
 library(sqldf)</code></pre>
-<p>suppose now I would like to see the homerun totals for the 1927 Yankees. I could write the following query query:</p>
+<p>Suppose now I would like to see the homerun totals for the 1927 Yankees. I could write the following query query:</p>
 <pre class="r"><code>query&lt;-&quot;SELECT playerID,yearID,teamID,HR FROM Batting
 WHERE teamID='NYA' and yearID=1927&quot;
 sqldf(query)</code></pre>
@@ -155,6 +155,53 @@ sqldf(query)</code></pre>
 ## 23 shockur01   1927    NYA  0
 ## 24 thomamy01   1927    NYA  0
 ## 25  weraju01   1927    NYA  1</code></pre>
+<p>Now we will find any instance where a player had more than 40 homeruns but less than 60 strikeouts.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR,SO FROM Batting 
+WHERE HR&gt;40 and SO&lt;60&quot;
+sqldf(query)</code></pre>
+<pre><code>##     playerID teamID yearID HR SO
+## 1  hornsro01    SLN   1922 42 50
+## 2  willicy01    PHI   1923 41 57
+## 3    ottme01    NY1   1929 42 38
+## 4  gehrilo01    NYA   1931 46 56
+## 5   ruthba01    NYA   1931 46 51
+## 6  gehrilo01    NYA   1934 49 31
+## 7  gehrilo01    NYA   1936 49 46
+## 8  troskha01    CLE   1936 42 58
+## 9  dimagjo01    NYA   1937 46 37
+## 10  mizejo01    SLN   1940 43 49
+## 11  mizejo01    NY1   1947 51 42
+## 12 willite01    BOS   1949 43 48
+## 13 kinerra01    PIT   1951 42 57
+## 14 camparo01    BRO   1953 41 58
+## 15 rosenal01    CLE   1953 43 48
+## 16 kluszte01    CIN   1954 49 35
+## 17  mayswi01    NY1   1954 41 57
+## 18 kluszte01    CIN   1955 47 40
+## 19 aaronha01    ML1   1957 44 58
+## 20 sievero01    WS1   1957 42 55
+## 21 aaronha01    ATL   1969 44 47
+## 22 aaronha01    ATL   1971 47 58
+## 23 thomafr04    CHA   1993 41 54
+## 24 bondsba01    SFN   2002 46 47
+## 25 bondsba01    SFN   2003 45 58
+## 26 bondsba01    SFN   2004 45 41
+## 27 pujolal01    SLN   2004 46 52
+## 28 pujolal01    SLN   2006 49 50</code></pre>
+<p>Let’s look at instances of Phillies in the 1970s hitting more than 30 homeruns.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,yearID,teamID,HR FROM Batting
+WHERE teamID='PHI' and HR&gt;30 and yearID&lt;=1979 and yearID&gt;=1970&quot;
+sqldf(query)</code></pre>
+<pre><code>##    playerID yearID teamID HR
+## 1 johnsde01   1971    PHI 34
+## 2 schmimi01   1974    PHI 36
+## 3 luzingr01   1975    PHI 34
+## 4 schmimi01   1975    PHI 38
+## 5 schmimi01   1976    PHI 38
+## 6 luzingr01   1977    PHI 39
+## 7 schmimi01   1977    PHI 38
+## 8 luzingr01   1978    PHI 35
+## 9 schmimi01   1979    PHI 45</code></pre>
 </div>
 <div id="order-by" class="section level2">
 <h2>ORDER BY</h2>
@@ -164,32 +211,16 @@ WHERE hr&gt;50
 ORDER BY HR DESC&quot;</code></pre>
 <pre><code>## [1] &quot;SELECT playerID,teamID,yearID,HR FROM Batting\nWHERE hr&gt;50\nORDER BY HR DESC&quot;</code></pre>
 <pre class="r"><code>sqldf(query)</code></pre>
-<pre><code>##     playerID yearID teamID HR
-## 1  beallwa01   1927    NYA  0
-## 2  bengobe01   1927    NYA  0
-## 3  collipa01   1927    NYA  7
-## 4  combsea01   1927    NYA  6
-## 5  duganjo01   1927    NYA  2
-## 6  durstce01   1927    NYA  0
-## 7  gazelmi01   1927    NYA  0
-## 8  gehrilo01   1927    NYA 47
-## 9  giardjo01   1927    NYA  0
-## 10 grabojo01   1927    NYA  0
-## 11  hoytwa01   1927    NYA  0
-## 12 koenima01   1927    NYA  3
-## 13 lazzeto01   1927    NYA 18
-## 14 meusebo01   1927    NYA  8
-## 15 moorewi01   1927    NYA  1
-## 16 morehra01   1927    NYA  1
-## 17 paschbe01   1927    NYA  2
-## 18 pennohe01   1927    NYA  0
-## 19 pipgrge01   1927    NYA  1
-## 20 ruethdu01   1927    NYA  1
-## 21  ruthba01   1927    NYA 60
-## 22 shawkbo01   1927    NYA  0
-## 23 shockur01   1927    NYA  0
-## 24 thomamy01   1927    NYA  0
-## 25  weraju01   1927    NYA  1</code></pre>
+<pre><code>##    playerID yearID teamID HR
+## 1 johnsde01   1971    PHI 34
+## 2 schmimi01   1974    PHI 36
+## 3 luzingr01   1975    PHI 34
+## 4 schmimi01   1975    PHI 38
+## 5 schmimi01   1976    PHI 38
+## 6 luzingr01   1977    PHI 39
+## 7 schmimi01   1977    PHI 38
+## 8 luzingr01   1978    PHI 35
+## 9 schmimi01   1979    PHI 45</code></pre>
 </div>
 
 
