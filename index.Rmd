@@ -43,8 +43,8 @@ sqldf(query)
 With SQL, you can order the rows of your output. For instance, suppose you want to see every instance of a player hitting more than 50 homeruns, but you would like the players with the most homeruns to be at the top.  We would do the following:
 
 ```{r}
-"SELECT playerID,teamID,yearID,HR FROM Batting
-WHERE hr>50
+query<-"SELECT playerID,teamID,yearID,HR FROM Batting
+WHERE HR>50
 ORDER BY HR DESC"
 
 sqldf(query)

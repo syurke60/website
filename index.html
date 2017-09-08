@@ -205,22 +205,49 @@ sqldf(query)</code></pre>
 </div>
 <div id="order-by" class="section level2">
 <h2>ORDER BY</h2>
-<p>wITH SQL, you can order the rows of your output. For instance, suppose you want to see every instance of a player hitting more than 50 homeruns. But you would like the players with the most homeruns to be at the top. We would do the following:</p>
-<pre class="r"><code>&quot;SELECT playerID,teamID,yearID,HR FROM Batting
-WHERE hr&gt;50
-ORDER BY HR DESC&quot;</code></pre>
-<pre><code>## [1] &quot;SELECT playerID,teamID,yearID,HR FROM Batting\nWHERE hr&gt;50\nORDER BY HR DESC&quot;</code></pre>
-<pre class="r"><code>sqldf(query)</code></pre>
-<pre><code>##    playerID yearID teamID HR
-## 1 johnsde01   1971    PHI 34
-## 2 schmimi01   1974    PHI 36
-## 3 luzingr01   1975    PHI 34
-## 4 schmimi01   1975    PHI 38
-## 5 schmimi01   1976    PHI 38
-## 6 luzingr01   1977    PHI 39
-## 7 schmimi01   1977    PHI 38
-## 8 luzingr01   1978    PHI 35
-## 9 schmimi01   1979    PHI 45</code></pre>
+<p>With SQL, you can order the rows of your output. For instance, suppose you want to see every instance of a player hitting more than 50 homeruns, but you would like the players with the most homeruns to be at the top. We would do the following:</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR FROM Batting
+WHERE HR&gt;50
+ORDER BY HR DESC&quot;
+
+sqldf(query)</code></pre>
+<pre><code>##     playerID teamID yearID HR
+## 1  bondsba01    SFN   2001 73
+## 2  mcgwima01    SLN   1998 70
+## 3   sosasa01    CHN   1998 66
+## 4  mcgwima01    SLN   1999 65
+## 5   sosasa01    CHN   2001 64
+## 6   sosasa01    CHN   1999 63
+## 7  marisro01    NYA   1961 61
+## 8   ruthba01    NYA   1927 60
+## 9   ruthba01    NYA   1921 59
+## 10  foxxji01    PHA   1932 58
+## 11 greenha01    DET   1938 58
+## 12 howarry01    PHI   2006 58
+## 13 gonzalu01    ARI   2001 57
+## 14 rodrial01    TEX   2002 57
+## 15 wilsoha01    CHN   1930 56
+## 16 griffke02    SEA   1997 56
+## 17 griffke02    SEA   1998 56
+## 18  ruthba01    NYA   1920 54
+## 19  ruthba01    NYA   1928 54
+## 20 kinerra01    PIT   1949 54
+## 21 mantlmi01    NYA   1961 54
+## 22 ortizda01    BOS   2006 54
+## 23 rodrial01    NYA   2007 54
+## 24 bautijo02    TOR   2010 54
+## 25 davisch02    BAL   2013 53
+## 26 mantlmi01    NYA   1956 52
+## 27  mayswi01    SFN   1965 52
+## 28 fostege01    CIN   1977 52
+## 29 mcgwima01    OAK   1996 52
+## 30 rodrial01    TEX   2001 52
+## 31 thomeji01    CLE   2002 52
+## 32 kinerra01    PIT   1947 51
+## 33  mizejo01    NY1   1947 51
+## 34  mayswi01    NY1   1955 51
+## 35 fieldce01    DET   1990 51
+## 36 jonesan01    ATL   2005 51</code></pre>
 </div>
 
 
