@@ -2,16 +2,16 @@
 title: "SQL"
 output: html_document
 ---
-## Filtering Columns and Rows
+## FILTERING COLUMNS AND ROWS
 
-With SQL, you can filter columns and rows by using SELECT for columns and WHERE from rows.  Let's look at an example using the Lahman database. So we should first load that database, along with the package sqldf.
+With SQL, you can filter columns and rows by using SELECT for columns and WHERE fOR rows.  Let's look at an example using the Lahman database. So, we should first load that database, along with the package sqldf.
 
 ```{r message=FALSE, warning=FALSE}
 library(Lahman)
 library(sqldf)
 ```
-Suppose now I would like to see the homerun totals for the 1927 Yankees.  I could write the following query
-query:
+
+Suppose now you would like to see the homerun totals for the 1927 Yankees.  You could write the following query:
 
 ```{r}
 query<-"SELECT playerID,yearID,teamID,HR FROM Batting
@@ -19,6 +19,7 @@ WHERE teamID='NYA' and yearID=1927"
 sqldf(query)
 ```
 
+###EXAMPLES
 
 Now we will find any instance where a player had more than 40 homeruns but less than 60 strikeouts.
 
@@ -36,8 +37,6 @@ WHERE teamID='PHI' and HR>30 and yearID<=1979 and yearID>=1970"
 sqldf(query)
 ```
 
-
-""
 ## ORDER BY
 
 With SQL, you can order the rows of your output. For instance, suppose you want to see every instance of a player hitting more than 50 homeruns, but you would like the players with the most homeruns to be at the top.  We would do the following:
@@ -86,5 +85,17 @@ ORDER BY sum(HR) DESC"
 
 sqldf(query)
 ```
+
+Let's find the players who've averaged more than 30 homeruns per year throughout their careers.  We'll place these in descending order.
+
+```{r}
+query<-"SELECT playerID,avg(HR) 
+FROM Batting 
+GROUP BY playerID 
+HAVING avg(HR)>30 
+ORDER BY avg(HR) DESC"
+sqldf(query)
+```
+## JOINING
 
 
