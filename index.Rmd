@@ -37,7 +37,7 @@ sqldf(query)
 ```
 
 
-
+""
 ## ORDER BY
 
 With SQL, you can order the rows of your output. For instance, suppose you want to see every instance of a player hitting more than 50 homeruns, but you would like the players with the most homeruns to be at the top.  We would do the following:
@@ -49,4 +49,42 @@ ORDER BY HR DESC"
 
 sqldf(query)
 ```
+
+Another example would be to Find all instances of a player striking out less than 10 times.  Let's make sure each player has had at least 400 at-bats (AB)
+We will order by having the least amount of strike outs at the top.  
+
+```{r}
+query<-"SELECT playerID,teamID,yearID,SO,AB
+FROM Batting
+WHERE SO<10 and AB>=400 
+ORDER BY SO"
+
+sqldf(query)
+```
+## AGGREGATION
+
+EXPLANATION (FIX THIS)
+
+Let's find Babe Ruth's career Homerun total.
+
+```{r}
+query<-"SELECT playerID,sum(HR) 
+FROM Batting 
+WHERE playerID='ruthba01' 
+GROUP BY playerID"
+
+sqldf(query)
+```
+Now let's find the career homerun totals for all players, but limit the output to totals that are 600 are more.  Let's put the player with the greatest amount at the top and descend from there.
+
+```{r}
+query<-"SELECT playerID,sum(HR) 
+FROM Batting 
+GROUP BY playerID 
+HAVING sum(HR)>=600 
+ORDER BY sum(HR) DESC" 
+
+sqldf(query)
+```
+
 
