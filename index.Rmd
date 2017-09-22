@@ -137,7 +137,23 @@ wHERE playerID='ruthba01'"
 
 sqldf(query)
 ```
+Let's find a list which names Babe Ruth's first and last name, homerun totals,as well as the full team name.
 
+```{r}
+query<-"SELECT nameFirst, nameLast, name, Batting.HR, Batting.yearID
+FROM (Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID) INNER JOIN Teams 
+ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID
+WHERE Batting.playerID='ruthba01'"
+
+sqldf(query)
+
+```
+
+Let's find the career homeruns for players who've hit at least 600 homeruns.  We'll list the first and last name of the players and their stats in descending order.
+
+```{r}
+query<-SELECT
 
 
 
