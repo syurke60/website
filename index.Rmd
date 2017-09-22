@@ -62,7 +62,8 @@ sqldf(query)
 ```
 ## AGGREGATION
 
-EXPLANATION (FIX THIS)
+EXPLANATION (FIX THIS!!!!!)
+
 
 Let's find Babe Ruth's career Homerun total.
 
@@ -97,5 +98,46 @@ ORDER BY avg(HR) DESC"
 sqldf(query)
 ```
 ## JOINING
+
+EXPLANATION (FIX THIS!!!!!)
+
+###EXAMPLES
+
+Let's try to find the first and last names of players along with their team, year amount of homeruns- however, let's specify the player as Babe Ruth.
+
+```{r}
+query<-"SELECT nameFirst, nameLast, teamID, yearID, HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE Batting.playerID='ruthba01'"
+
+sqldf(query)
+
+```
+
+Now, we will find all instances of players hitting more than 50 homeruns.  We'll include first and last names, team, year, and homeruns ordered by most to least homeruns.
+
+```{r}
+query<-"SELECT nameFirst, nameLast, teamID, yearID, HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE HR>50
+ORDER BY HR DESC"
+
+sqldf(query)
+
+```
+
+Let's see Babe Ruth's homerun totals with with player ID, team name, and year. 
+```{r}
+query<-"SELECT playerID,Batting.HR,Batting.yearID,name
+FROM Batting INNER JOIN Teams
+ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID
+wHERE playerID='ruthba01'"
+
+sqldf(query)
+```
+
+
 
 
