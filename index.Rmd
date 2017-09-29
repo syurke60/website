@@ -111,7 +111,7 @@ sqldf(query)
 ```
 ## JOINING
 
-
+Joining allows tables to be joined when they have something in common.  We do this by INNER JOIN and ON.
 
 ###EXAMPLES
 
